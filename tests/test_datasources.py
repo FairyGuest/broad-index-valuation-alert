@@ -8,7 +8,7 @@ from valuation_alert.datasources.nasdaq import NasdaqSource
 from conftest import fixture_json, fixture_text
 
 
-# ---------- 蛋卷(A股) ----------
+# ---------- 蛋卷(A股 + 美股) ----------
 def test_danjuan_sh000300():
     src = DanjuanSource(raw=fixture_text("danjuan_eva.json"))
     quote = src.get_quote({"code": "SH000300", "name": "沪深300",
@@ -18,6 +18,16 @@ def test_danjuan_sh000300():
     assert quote.pe > 0
     assert not quote.proxy
     assert quote.data_date  # YYYY-MM-DD,来自 ts 时间戳
+
+
+def test_danjuan_us_indices():
+    """蛋卷列表接口同样覆盖标普500与纳指100(四指数同源同口径)。"""
+    src = DanjuanSource(raw=fixture_text("danjuan_eva.json"))
+    spx = src.get_quote({"code": "SP500", "name": "标普500"})
+    ndx = src.get_quote({"code": "NDX", "name": "纳斯达克100"})
+    assert spx.percentile == 57.2 and spx.pe == pytest.approx(25.16, abs=0.01)
+    assert ndx.percentile == 48.8 and ndx.pe == pytest.approx(30.48, abs=0.01)
+    assert not ndx.proxy    # 已是真实 PE 口径,不再是价格代理
 
 
 def test_danjuan_sh000905():

@@ -18,24 +18,6 @@
       "tier_depth": 1,
       "data_date": "2026-09-18",
       "source": "蛋卷·PE分位(近10年)"
-    },
-    "SP500": {
-      "name": "标普500",
-      "prev_percentile": 64.2,
-      "cur_percentile": 64.2,
-      "signal_state": "none",
-      "tier_depth": 0,
-      "data_date": "2026-09-18",
-      "source": "multpl·月度PE(近10年)"
-    },
-    "NDX": {
-      "name": "纳斯达克100",
-      "prev_percentile": 99.0,
-      "cur_percentile": 99.0,
-      "signal_state": "sell",
-      "tier_depth": 4,
-      "data_date": "2026-09-18",
-      "source": "Nasdaq·价格分位(近10年,代理口径)"
     }
   },
   "last_digest_date": "2026-09-21"

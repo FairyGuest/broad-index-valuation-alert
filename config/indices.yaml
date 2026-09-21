@@ -30,13 +30,13 @@ indices:
 
   - code: SP500
     name: 标普500
-    source: multpl
-    source_label: "multpl·月度PE(近10年)"
-    window: 120            # 参与分位计算的月度样本数(120 = 近10年)
+    source: danjuan
+    source_label: "蛋卷·PE分位(近10年)"
 
   - code: NDX
     name: 纳斯达克100
-    source: nasdaq
-    source_label: "Nasdaq·价格分位(近10年,代理口径)"
-    proxy: true            # 价格代理口径,推送与页面强制标注
-    window_days: 3650      # 拉取的历史天数
+    source: danjuan
+    source_label: "蛋卷·PE分位(近10年)"
+
+  # 备用数据源适配器(multpl:标普500月度PE自算;nasdaq:价格分位代理)保留在代码中,
+  # 主源失败时可在本文件把对应指数的 source 字段临时切换过去。
