@@ -24,4 +24,8 @@ retry:
   attempts: 3
   backoff_seconds: [5, 30, 120]
 
+# 每日估值日报:无信号的交易日推送一条四指数分位总结(有信号的日子,信号消息即日报,
+# 当日不会重复发,保证每日最多 1 条;Server酱免费版每日 5 条额度足够)
+daily_digest: true
+
 pages_url: ""   # 可选:GitHub Pages 地址(如 https://user.github.io/valuation-alert),填后附在提醒末尾

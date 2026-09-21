@@ -12,6 +12,24 @@ def make_quote(pct, code="SH000300", name="沪深300", pe=13.4, proxy=False):
                       proxy=proxy, window_label="近10年")
 
 
+def test_digest_renders_zones_and_delta():
+    quotes = [make_quote(38.2), make_quote(78.9, "SH000905", "中证500")]
+    prev_map = {"SH000300": 41.5, "SH000905": 78.9}   # 一跌入、一持平
+    title, body = message.render_digest(quotes, prev_map, STRATEGY_CFG, [], "")
+    assert title == "估值日报:四指数分位一览"
+    assert "定投区 38.2% → 35–40 档" in body
+    assert "较上次 -3.3pct" in body            # 38.2 - 41.5
+    assert "止盈区 78.9% → 75–80 档" in body
+    assert "较上次 +0pct" in body               # 78.9 - 78.9 持平
+
+
+def test_digest_without_prev():
+    _, body = message.render_digest([make_quote(65.0)], {}, STRATEGY_CFG, ["中证500"], "")
+    assert "较上次" not in body
+    assert "中性区 65%" in body
+    assert "采集失败:中证500" in body
+
+
 def test_title_single_and_multi():
     s1 = Signal("SH000300", "沪深300", "buy", "35–40", "x", 1, 38.2, 41.5, make_quote(38.2))
     assert message.render_title([s1]) == "估值提醒:沪深300 已进入定投区间"

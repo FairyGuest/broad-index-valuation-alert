@@ -68,6 +68,16 @@ def push(title: str, body: str, notify_cfg: dict) -> bool:
     return any(results)
 
 
+def _send_or_preview(title: str, body: str, dry_run: bool, kind: str,
+                     notify_cfg: dict) -> bool:
+    """统一出口:dry-run 打印预览,正式运行推送。返回是否'已送达'。"""
+    if dry_run:
+        print(f"\n===== DRY-RUN {kind}消息预览 =====\n标题:{title}\n\n{body}\n============================")
+        return True
+    log.info("推送消息(%s):%s", kind, title)
+    return push(title, body, notify_cfg)
+
+
 def run(dry_run: bool = False, test_push: bool = False,
         config_dir: str = DEFAULT_CONFIG_DIR) -> int:
     indices_cfg = load_indices_cfg(config_dir)
@@ -94,6 +104,8 @@ def run(dry_run: bool = False, test_push: bool = False,
 
     state = state_mod.load()
     is_baseline = not state["indices"]    # 首跑:无任何指数状态
+    prev_map = {code: (state_mod.entry_for(state, code) or {}).get("cur_percentile")
+                for code in (i["code"] for i in indices_cfg["indices"])}
     signals: list[Signal] = []
     for quote in quotes:
         entry = state_mod.entry_for(state, quote.code)
@@ -107,22 +119,27 @@ def run(dry_run: bool = False, test_push: bool = False,
                      signal.cur_percentile)
     log.info("判定完成:%d 个信号,%d 指数成功,%d 跳过", len(signals), len(quotes), len(skipped))
 
+    # 消息决策(每日最多推送一条):信号 > 首跑基线 > 每日日报
+    daily_digest = notify_cfg.get("daily_digest", False)
+    digested_today = state.get("last_digest_date") == today
     if signals:
         title = message.render_title(signals)
         body = message.render_body(signals, quotes, skipped, pages_url)
-        if dry_run:
-            print(f"\n===== DRY-RUN 消息预览 =====\n标题:{title}\n\n{body}\n============================")
-        else:
-            push(title, body, notify_cfg)
+        sent = _send_or_preview(title, body, dry_run, "信号", notify_cfg)
     elif is_baseline:
-        # 首跑:推送当前状态基线,让上线者立即知道各指数位置;此后只在变化时提醒
         title, body = message.render_baseline(quotes, strategy_cfg, skipped, pages_url)
+        sent = _send_or_preview(title, body, dry_run, "首跑基线", notify_cfg)
+    elif daily_digest and not digested_today:
+        title, body = message.render_digest(quotes, prev_map, strategy_cfg, skipped, pages_url)
+        sent = _send_or_preview(title, body, dry_run, "日报", notify_cfg)
+    else:
+        sent = False
         if dry_run:
-            print(f"\n===== DRY-RUN 首跑基线报告预览 =====\n标题:{title}\n\n{body}\n============================")
-        else:
-            push(title, body, notify_cfg)
-    elif dry_run:
-        print("\n===== DRY-RUN:无信号,不推送(正常)=====")
+            reason = "今日已推送过" if digested_today else "daily_digest 关闭"
+            print(f"\n===== DRY-RUN:无信号且无需日报({reason}),今日不推送 =====")
+    # 推送成功(或 dry-run 预览过)才记当日已发,保证幂等;渠道全失败则下次运行重试
+    if sent and (signals or is_baseline or daily_digest):
+        state["last_digest_date"] = today
 
     if dry_run:
         print("DRY-RUN:不写入状态与前端数据")

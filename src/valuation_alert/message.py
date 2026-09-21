@@ -56,6 +56,35 @@ def render_body(signals: list[Signal], quotes: list[IndexQuote],
     return "\n".join(lines)
 
 
+def render_digest(quotes, prev_map: dict, strategy_cfg: dict,
+                  skipped: list[str], pages_url: str = "") -> tuple[str, str]:
+    """每日估值日报:四指数分位 + 较上次变化 + 所处区间。
+
+    prev_map: {code: 上次运行的分位},无记录时不显示变化。
+    """
+    from .strategy import zone_of
+    lines = ["今日估值一览(北京时间收盘后):"]
+    for q in quotes:
+        zone, tier = zone_of(q.percentile, strategy_cfg)
+        prev = prev_map.get(q.code)
+        delta = "" if prev is None else f",较上次 {q.percentile - prev:+g}pct"
+        if zone == "buy":
+            info = f"定投区 {q.percentile:g}% → {tier['label']} 档:{tier['action']}"
+        elif zone == "sell":
+            info = f"止盈区 {q.percentile:g}% → {tier['label']} 档:建议{tier['ratio']}"
+        else:
+            info = f"中性区 {q.percentile:g}%"
+        metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理"
+        lines.append(f"【{q.name}】{info}({delta.strip(', ')},{metric},{q.data_date})")
+    if skipped:
+        lines.append(f"采集失败:{'、'.join(skipped)}")
+    lines.append("")
+    lines.append("仅在跨越 40%/75% 或档位加深时会有操作提醒。")
+    if pages_url:
+        lines.append(f"查看详情:{pages_url}")
+    return "估值日报:四指数分位一览", "\n".join(lines)
+
+
 def render_test_body(now_txt: str, pages_url: str = "") -> str:
     lines = ["这是一条测试消息:估值提醒系统配置成功。",
              f"发出时间:{now_txt}(北京时间)",
