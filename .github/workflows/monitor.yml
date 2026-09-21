@@ -2,7 +2,8 @@ name: valuation-monitor
 
 on:
   schedule:
-    - cron: '30 10 * * 1-5'   # UTC 10:30 = 北京时间 18:30,周一至周五
+    - cron: '0 2 * * 1-5'      # UTC 02:00 = 北京时间 10:00,周一至周五
+                               # 依据实测:蛋卷A股估值深夜发布(次晨已就绪)、美股数据晨间更新
   workflow_dispatch:
     inputs:
       mode:
