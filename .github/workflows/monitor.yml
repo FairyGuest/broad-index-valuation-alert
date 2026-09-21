@@ -1,0 +1,57 @@
+name: valuation-monitor
+
+on:
+  schedule:
+    - cron: '30 10 * * 1-5'   # UTC 10:30 = 北京时间 18:30,周一至周五
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '运行模式'
+        type: choice
+        default: normal
+        options: [normal, test-push]
+
+permissions:
+  contents: write            # 提交状态与前端数据文件
+
+concurrency:
+  group: valuation-monitor
+  cancel-in-progress: false  # 排队不丢弃,避免漏跑
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_AUTH_CODE: ${{ secrets.SMTP_AUTH_CODE }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ github.event.inputs.mode }}" = "test-push" ]; then
+            PYTHONPATH=src python -m valuation_alert.main --test-push
+          else
+            PYTHONPATH=src python -m valuation_alert.main
+          fi
+
+      - name: Commit state and docs data
+        run: |
+          git config user.name "valuation-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/ docs/data/ || true
+          git diff --cached --quiet || git commit -m "state update [skip ci]"
+          git push

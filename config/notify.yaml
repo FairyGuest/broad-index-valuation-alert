@@ -1,0 +1,27 @@
+# 推送渠道配置:密钥一律从环境变量读取(生产环境来自 GitHub Secrets),文件中只存变量名
+channels:
+  - name: serverchan          # 主渠道:微信服务号直达
+    type: serverchan
+    enabled: true
+    key_env: SERVERCHAN_SENDKEY
+
+  - name: email               # 主渠道:邮件留档 + 附页面链接,与 serverchan 同发
+    type: smtp
+    enabled: true
+    host: smtp.qq.com
+    port: 465
+    user_env: SMTP_USER           # 发件邮箱,如 xxx@qq.com
+    password_env: SMTP_AUTH_CODE  # QQ邮箱SMTP授权码(不是登录密码)
+    to_env: SMTP_TO               # 收件邮箱,可与发件相同
+
+  - name: telegram            # 降级渠道:主渠道全部失败时才启用发送
+    type: telegram
+    enabled: false             # 需要时改为 true 并配置 Secrets
+    token_env: TELEGRAM_BOT_TOKEN
+    chat_id_env: TELEGRAM_CHAT_ID
+
+retry:
+  attempts: 3
+  backoff_seconds: [5, 30, 120]
+
+pages_url: ""   # 可选:GitHub Pages 地址(如 https://user.github.io/valuation-alert),填后附在提醒末尾

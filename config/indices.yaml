@@ -1,0 +1,42 @@
+# 指数与策略配置:增删指数、调整阈值/档位只改本文件,无需改代码
+timezone: Asia/Shanghai
+
+strategy:
+  buy_threshold: 40    # 买入触发:上次分位 >= 40 且本次 < 40(40.0 本身不算跌破)
+  sell_threshold: 75   # 卖出触发:上次分位 < 75 且本次 >= 75(75.0 算升入)
+  # 买入档位:自上而下首个"分位 < max"命中;区间为左闭右开 [下档max, 本档max)
+  buy_tiers:
+    - {max: 15, multiple: 3.0, label: "0–15", action: "定投 3 倍,可动用备用资金"}
+    - {max: 25, multiple: 2.0, label: "15–25", action: "定投 2 倍"}
+    - {max: 35, multiple: 1.5, label: "25–35", action: "定投 1.5 倍"}
+    - {max: 40, multiple: 1.0, label: "35–40", action: "基础定投 1 倍"}
+  # 卖出档位:自上而下首个"分位 >= min"命中;90 档为闭区间 [90,100]
+  sell_tiers:
+    - {min: 90, ratio: "清仓或仅保留极低底仓", label: "≥90"}
+    - {min: 85, ratio: "卖出剩余大部分", label: "85–90"}
+    - {min: 80, ratio: "再卖出 30%", label: "80–85"}
+    - {min: 75, ratio: "卖出持仓 20%–30%", label: "75–80"}
+
+indices:
+  - code: SH000300
+    name: 沪深300
+    source: danjuan
+    source_label: "蛋卷·PE分位(近10年)"
+
+  - code: SH000905
+    name: 中证500
+    source: danjuan
+    source_label: "蛋卷·PE分位(近10年)"
+
+  - code: SP500
+    name: 标普500
+    source: multpl
+    source_label: "multpl·月度PE(近10年)"
+    window: 120            # 参与分位计算的月度样本数(120 = 近10年)
+
+  - code: NDX
+    name: 纳斯达克100
+    source: nasdaq
+    source_label: "Nasdaq·价格分位(近10年,代理口径)"
+    proxy: true            # 价格代理口径,推送与页面强制标注
+    window_days: 3650      # 拉取的历史天数
