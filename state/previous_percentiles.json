@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-09-21T16:11:06+08:00",
+  "updated_at": "2026-09-21T16:23:10+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
-      "prev_percentile": null,
+      "prev_percentile": 65.1,
       "cur_percentile": 65.1,
       "signal_state": "none",
       "tier_depth": 0,
@@ -12,7 +12,7 @@
     },
     "SH000905": {
       "name": "中证500",
-      "prev_percentile": null,
+      "prev_percentile": 78.7,
       "cur_percentile": 78.7,
       "signal_state": "sell",
       "tier_depth": 1,
@@ -21,7 +21,7 @@
     },
     "SP500": {
       "name": "标普500",
-      "prev_percentile": null,
+      "prev_percentile": 64.2,
       "cur_percentile": 64.2,
       "signal_state": "none",
       "tier_depth": 0,
@@ -30,12 +30,13 @@
     },
     "NDX": {
       "name": "纳斯达克100",
-      "prev_percentile": null,
+      "prev_percentile": 99.0,
       "cur_percentile": 99.0,
       "signal_state": "sell",
       "tier_depth": 4,
       "data_date": "2026-09-18",
       "source": "Nasdaq·价格分位(近10年,代理口径)"
     }
-  }
+  },
+  "last_digest_date": "2026-09-21"
 }
