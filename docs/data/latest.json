@@ -1,0 +1,71 @@
+{
+  "updated_at": "2026-09-21 16:02",
+  "thresholds": {
+    "buy": 40,
+    "sell": 75
+  },
+  "indices": [
+    {
+      "code": "SH000300",
+      "name": "沪深300",
+      "pe": 13.38,
+      "percentile": 65.1,
+      "proxy": false,
+      "data_date": "2026-09-18",
+      "source_label": "蛋卷·PE分位(近10年)",
+      "window_label": "近10年",
+      "sample_size": 0,
+      "zone": "none",
+      "zone_label": "中性区",
+      "tier": null
+    },
+    {
+      "code": "SH000905",
+      "name": "中证500",
+      "pe": 33.34,
+      "percentile": 78.7,
+      "proxy": false,
+      "data_date": "2026-09-18",
+      "source_label": "蛋卷·PE分位(近10年)",
+      "window_label": "近10年",
+      "sample_size": 0,
+      "zone": "sell",
+      "zone_label": "止盈区",
+      "tier": {
+        "label": "75–80",
+        "action": "建议卖出持仓 20%–30%"
+      }
+    },
+    {
+      "code": "SP500",
+      "name": "标普500",
+      "pe": 26.07,
+      "percentile": 64.2,
+      "proxy": false,
+      "data_date": "2026-09-18",
+      "source_label": "multpl·月度PE(近10年)",
+      "window_label": "近10年(月度,120个样本)",
+      "sample_size": 120,
+      "zone": "none",
+      "zone_label": "中性区",
+      "tier": null
+    },
+    {
+      "code": "NDX",
+      "name": "纳斯达克100",
+      "pe": null,
+      "percentile": 99.0,
+      "proxy": true,
+      "data_date": "2026-09-18",
+      "source_label": "Nasdaq·价格分位(近10年,代理口径)",
+      "window_label": "近10年(日频价格,2510个样本)",
+      "sample_size": 2510,
+      "zone": "sell",
+      "zone_label": "止盈区",
+      "tier": {
+        "label": "≥90",
+        "action": "建议清仓或仅保留极低底仓"
+      }
+    }
+  ]
+}
