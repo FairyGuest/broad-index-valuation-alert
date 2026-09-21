@@ -130,7 +130,8 @@ def run(dry_run: bool = False, test_push: bool = False,
         title, body = message.render_baseline(quotes, strategy_cfg, skipped, pages_url)
         sent = _send_or_preview(title, body, dry_run, "首跑基线", notify_cfg)
     elif daily_digest and not digested_today:
-        title, body = message.render_digest(quotes, prev_map, strategy_cfg, skipped, pages_url)
+        title, body = message.render_digest(quotes, prev_map, strategy_cfg,
+                                            skipped, pages_url, today)
         sent = _send_or_preview(title, body, dry_run, "日报", notify_cfg)
     else:
         sent = False

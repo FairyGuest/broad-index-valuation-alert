@@ -57,31 +57,42 @@ def render_body(signals: list[Signal], quotes: list[IndexQuote],
 
 
 def render_digest(quotes, prev_map: dict, strategy_cfg: dict,
-                  skipped: list[str], pages_url: str = "") -> tuple[str, str]:
-    """每日估值日报:四指数分位 + 较上次变化 + 所处区间。
-
-    prev_map: {code: 上次运行的分位},无记录时不显示变化。
-    """
+                  skipped: list[str], pages_url: str = "",
+                  today: str = "") -> tuple[str, str]:
+    """每日估值日报:每个指数一个小块,块间空行(Server酱按 Markdown 渲染,
+    单换行会被合并成同段,必须用空行分段)。"""
     from .strategy import zone_of
-    lines = ["今日估值一览(北京时间收盘后):"]
+    zone_icons = {"buy": "🟢", "sell": "🔴", "none": ""}
+    zone_names = {"buy": "定投区", "sell": "止盈区", "none": "中性区"}
+    lines = [f"四指数估值状态 · {today}(收盘后)" if today else "四指数估值状态(收盘后)", ""]
     for q in quotes:
         zone, tier = zone_of(q.percentile, strategy_cfg)
+        head = f"【{q.name}】{zone_icons[zone]}{zone_names[zone]}"
+        if zone != "none":
+            head += f" · {tier['label']} 档"
+        lines.append(head)
+        metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理口径(非PE)"
         prev = prev_map.get(q.code)
-        delta = "" if prev is None else f",较上次 {q.percentile - prev:+g}pct"
-        if zone == "buy":
-            info = f"定投区 {q.percentile:g}% → {tier['label']} 档:{tier['action']}"
-        elif zone == "sell":
-            info = f"止盈区 {q.percentile:g}% → {tier['label']} 档:建议{tier['ratio']}"
+        if prev is None:
+            delta = "首次记录"
+        elif abs(q.percentile - prev) < 0.05:
+            delta = "较上次持平"
         else:
-            info = f"中性区 {q.percentile:g}%"
-        metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理"
-        lines.append(f"【{q.name}】{info}({delta.strip(', ')},{metric},{q.data_date})")
+            delta = f"较上次 {q.percentile - prev:+g} 个点"
+        lines.append(f"分位 {q.percentile:g}%({delta})· {metric}")
+        if zone == "buy":
+            lines.append(f"建议:{tier['action']}")
+        elif zone == "sell":
+            lines.append(f"建议:{tier['ratio']}")
+        lines.append(f"数据 {q.data_date} · {q.source_label}")
+        lines.append("")
     if skipped:
-        lines.append(f"采集失败:{'、'.join(skipped)}")
-    lines.append("")
-    lines.append("仅在跨越 40%/75% 或档位加深时会有操作提醒。")
+        lines.append(f"⚠️ 采集失败:{'、'.join(skipped)}")
+        lines.append("")
+    lines.append("——————")
+    lines.append("操作提醒仅在分位跨越 40%/75% 或档位加深时发送")
     if pages_url:
-        lines.append(f"查看详情:{pages_url}")
+        lines.append(f"详情:{pages_url}")
     return "估值日报:四指数分位一览", "\n".join(lines)
 
 

@@ -15,19 +15,22 @@ def make_quote(pct, code="SH000300", name="沪深300", pe=13.4, proxy=False):
 def test_digest_renders_zones_and_delta():
     quotes = [make_quote(38.2), make_quote(78.9, "SH000905", "中证500")]
     prev_map = {"SH000300": 41.5, "SH000905": 78.9}   # 一跌入、一持平
-    title, body = message.render_digest(quotes, prev_map, STRATEGY_CFG, [], "")
+    title, body = message.render_digest(quotes, prev_map, STRATEGY_CFG, [], "", "2026-09-21")
     assert title == "估值日报:四指数分位一览"
-    assert "定投区 38.2% → 35–40 档" in body
-    assert "较上次 -3.3pct" in body            # 38.2 - 41.5
-    assert "止盈区 78.9% → 75–80 档" in body
-    assert "较上次 +0pct" in body               # 78.9 - 78.9 持平
+    # 每指数成块:标题行 / 分位行 / 建议行,块间空行(Server酱 Markdown 靠空行分段)
+    assert "【沪深300】🟢定投区 · 35–40 档" in body
+    assert "分位 38.2%(较上次 -3.3 个点)· PE 13.4" in body
+    assert "【中证500】🔴止盈区 · 75–80 档" in body
+    assert "较上次持平" in body
+    assert "四指数估值状态 · 2026-09-21" in body
+    assert body.count("\n\n") >= 3    # 指数块之间确实有空行分段
 
 
 def test_digest_without_prev():
     _, body = message.render_digest([make_quote(65.0)], {}, STRATEGY_CFG, ["中证500"], "")
-    assert "较上次" not in body
-    assert "中性区 65%" in body
-    assert "采集失败:中证500" in body
+    assert "首次记录" in body
+    assert "中性区" in body
+    assert "⚠️ 采集失败:中证500" in body
 
 
 def test_title_single_and_multi():
