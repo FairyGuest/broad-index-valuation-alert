@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21 16:23",
+  "updated_at": "2026-09-21 16:45",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -39,33 +39,30 @@
     {
       "code": "SP500",
       "name": "标普500",
-      "pe": 26.07,
-      "percentile": 64.2,
+      "pe": 25.16,
+      "percentile": 57.2,
       "proxy": false,
       "data_date": "2026-09-18",
-      "source_label": "multpl·月度PE(近10年)",
-      "window_label": "近10年(月度,120个样本)",
-      "sample_size": 120,
+      "source_label": "蛋卷·PE分位(近10年)",
+      "window_label": "近10年",
+      "sample_size": 0,
       "zone": "none",
       "zone_label": "中性区",
       "tier": null
     },
     {
       "code": "NDX",
-      "name": "纳斯达克100",
-      "pe": null,
-      "percentile": 99.0,
-      "proxy": true,
+      "name": "纳指100",
+      "pe": 30.48,
+      "percentile": 48.8,
+      "proxy": false,
       "data_date": "2026-09-18",
-      "source_label": "Nasdaq·价格分位(近10年,代理口径)",
-      "window_label": "近10年(日频价格,2510个样本)",
-      "sample_size": 2510,
-      "zone": "sell",
-      "zone_label": "止盈区",
-      "tier": {
-        "label": "≥90",
-        "action": "建议清仓或仅保留极低底仓"
-      }
+      "source_label": "蛋卷·PE分位(近10年)",
+      "window_label": "近10年",
+      "sample_size": 0,
+      "zone": "none",
+      "zone_label": "中性区",
+      "tier": null
     }
   ]
 }

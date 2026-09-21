@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T16:23:10+08:00",
+  "updated_at": "2026-09-21T16:45:00+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
@@ -16,6 +16,24 @@
       "cur_percentile": 78.7,
       "signal_state": "sell",
       "tier_depth": 1,
+      "data_date": "2026-09-18",
+      "source": "蛋卷·PE分位(近10年)"
+    },
+    "SP500": {
+      "name": "标普500",
+      "prev_percentile": null,
+      "cur_percentile": 57.2,
+      "signal_state": "none",
+      "tier_depth": 0,
+      "data_date": "2026-09-18",
+      "source": "蛋卷·PE分位(近10年)"
+    },
+    "NDX": {
+      "name": "纳指100",
+      "prev_percentile": null,
+      "cur_percentile": 48.8,
+      "signal_state": "none",
+      "tier_depth": 0,
       "data_date": "2026-09-18",
       "source": "蛋卷·PE分位(近10年)"
     }
