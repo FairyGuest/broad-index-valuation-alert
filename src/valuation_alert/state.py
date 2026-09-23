@@ -22,6 +22,18 @@ def empty_state() -> dict:
     return {"updated_at": None, "indices": {}}
 
 
+def materially_changed(before: dict | None, after: dict) -> bool:
+    """比较两份状态是否有实质差异(忽略 updated_at 时间戳)。
+
+    高频 cron 策略下每天运行 20+ 次,若仅因时间戳变化就写文件,会产生大量
+    无意义提交并频繁触发 Pages 构建(并发部署会冲突失败)。故仅在实质
+    数据变化(分位/区间/信号/日期任一变动)时才落盘。
+    """
+    def strip(d):
+        return {k: v for k, v in (d or {}).items() if k != "updated_at"}
+    return strip(before) != strip(after)
+
+
 def load(path: str = STATE_FILE) -> dict:
     if not os.path.exists(path):
         return empty_state()

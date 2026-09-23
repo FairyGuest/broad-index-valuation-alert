@@ -74,6 +74,17 @@ def test_load_missing_file():
     assert st.load("no/such/file.json") == st.empty_state()
 
 
+def test_materially_changed():
+    a = {"updated_at": "t1", "indices": {"X": {"cur_percentile": 50.0}}}
+    b = {"updated_at": "t2", "indices": {"X": {"cur_percentile": 50.0}}}
+    assert st.materially_changed(a, a) is False
+    assert st.materially_changed(a, b) is False           # 仅时间戳不同:无实质变化
+    c = {"updated_at": "t2", "indices": {"X": {"cur_percentile": 51.0}}}
+    assert st.materially_changed(a, c) is True            # 分位变化:有实质变化
+    assert st.materially_changed(None, {"indices": {}}) is True   # 首跑
+    assert st.materially_changed({"indices": {}}, {"indices": {"X": {}}}) is True
+
+
 def test_schedule_window():
     B = ZoneInfo("Asia/Shanghai")
     at = lambda h, m: datetime(2026, 9, 23, h, m, tzinfo=B)

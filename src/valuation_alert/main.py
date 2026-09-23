@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import logging
 import sys
 import time
@@ -111,6 +112,7 @@ def run(dry_run: bool = False, test_push: bool = False,
         return 1
 
     state = state_mod.load()
+    old_state = copy.deepcopy(state)    # 深拷贝快照(apply_quote 原地修改嵌套结构)
     is_baseline = not state["indices"]    # 首跑:无任何指数状态
     prev_map = {code: (state_mod.entry_for(state, code) or {}).get("cur_percentile")
                 for code in (i["code"] for i in indices_cfg["indices"])}
@@ -152,6 +154,10 @@ def run(dry_run: bool = False, test_push: bool = False,
 
     if dry_run:
         print("DRY-RUN:不写入状态与前端数据")
+        return 0
+
+    if not state_mod.materially_changed(old_state, state):
+        log.info("数据无实质变化,跳过落盘(避免高频提交触发 Pages 构建冲突)")
         return 0
 
     state_mod.save(state, now=now)
