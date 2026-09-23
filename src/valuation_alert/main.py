@@ -14,7 +14,7 @@ import time
 from datetime import date
 
 from . import docsdata, message, state as state_mod
-from .config import DEFAULT_CONFIG_DIR, beijing_now, load_indices_cfg, load_notify_cfg
+from .config import DEFAULT_CONFIG_DIR, beijing_now, in_schedule_window, load_indices_cfg, load_notify_cfg
 from .datasources import DataError, build_source
 from .models import IndexQuote, Signal
 from .notify import build_notifiers, send_with_retry
@@ -80,6 +80,14 @@ def _send_or_preview(title: str, body: str, dry_run: bool, kind: str,
 
 def run(dry_run: bool = False, test_push: bool = False,
         config_dir: str = DEFAULT_CONFIG_DIR) -> int:
+    # GitHub 对定时任务调度不可靠(实测连续丢失),策略改为高频 cron + 窗口自检:
+    # 定时触发只在北京时间 09:15–20:00 窗口内执行,窗口外秒退(不耗额度);
+    # 手动触发(workflow_dispatch)不受限制。
+    import os
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not in_schedule_window(beijing_now()):
+        log.info("非运行窗口(北京 09:15–20:00 之外),定时触发跳过")
+        return 0
+
     indices_cfg = load_indices_cfg(config_dir)
     notify_cfg = load_notify_cfg(config_dir)
     strategy_cfg = indices_cfg["strategy"]

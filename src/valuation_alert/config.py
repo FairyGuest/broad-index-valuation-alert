@@ -15,6 +15,16 @@ def beijing_now() -> datetime:
     return datetime.now(ZoneInfo("Asia/Shanghai"))
 
 
+def in_schedule_window(now: datetime) -> bool:
+    """定时触发的有效运行窗口:北京时间 09:15–20:00。
+
+    依据:蛋卷 A 股估值深夜发布、美股数据晨间更新,09:15 后数据就绪;
+    20:00 后当日操作窗口(15:00)已过,无需再跑。手动触发不受此限制。
+    """
+    mins = now.hour * 60 + now.minute
+    return 9 * 60 + 15 <= mins <= 20 * 60
+
+
 def _load_yaml(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         data = yaml.safe_load(f)

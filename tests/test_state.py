@@ -1,5 +1,9 @@
 """状态管理测试:连续运行幂等、状态转移正确性。"""
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 from valuation_alert import state as st
+from valuation_alert.config import in_schedule_window
 from valuation_alert.models import IndexQuote
 from valuation_alert.strategy import evaluate
 from conftest import STRATEGY_CFG
@@ -68,3 +72,15 @@ def test_save_and_load_roundtrip(tmp_path):
 
 def test_load_missing_file():
     assert st.load("no/such/file.json") == st.empty_state()
+
+
+def test_schedule_window():
+    B = ZoneInfo("Asia/Shanghai")
+    at = lambda h, m: datetime(2026, 9, 23, h, m, tzinfo=B)
+    assert not in_schedule_window(at(9, 14))     # 窗口前
+    assert in_schedule_window(at(9, 15))         # 窗口起点(含)
+    assert in_schedule_window(at(9, 37))         # 首条有效 cron
+    assert in_schedule_window(at(12, 0))
+    assert in_schedule_window(at(20, 0))         # 窗口终点(含)
+    assert not in_schedule_window(at(20, 1))     # 窗口后
+    assert not in_schedule_window(at(3, 7))      # 凌晨的美股收盘时段不跑
