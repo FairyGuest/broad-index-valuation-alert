@@ -19,7 +19,7 @@ def test_digest_renders_zones_and_delta():
     assert title == "估值日报:四指数分位一览"
     # 每指数成块:标题行 / 分位行 / 建议行,块间空行(Server酱 Markdown 靠空行分段)
     assert "【沪深300】🟢定投区 · 35–40 档" in body
-    assert "分位 38.2%(较上次 -3.3 个点)· PE 13.4" in body
+    assert "分位 38.2%(较上次 -3.3 个点)· PE-TTM 13.4" in body
     assert "【中证500】🔴止盈区 · 75–80 档" in body
     assert "较上次持平" in body
     assert "四指数估值状态 · 2026-09-21" in body

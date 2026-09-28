@@ -18,11 +18,11 @@ def render_title(signals: list[Signal]) -> str:
 def _signal_line(s: Signal) -> list[str]:
     prev_txt = f"(上次 {s.prev_percentile:g}%," if s.prev_percentile is not None else "("
     if s.direction == "buy":
-        head = f"【买入】{s.name}:PE 分位 {s.cur_percentile:g}% {prev_txt}跌破 40%)"
+        head = f"【买入】{s.name}:PE-TTM 分位 {s.cur_percentile:g}% {prev_txt}跌破 40%)"
     else:
-        head = f"【止盈】{s.name}:PE 分位 {s.cur_percentile:g}% {prev_txt}升破 75%)"
+        head = f"【止盈】{s.name}:PE-TTM 分位 {s.cur_percentile:g}% {prev_txt}升破 75%)"
     lines = [head, f"  档位 {s.tier_label} | {s.action_text}"]
-    metric = f"PE {s.quote.pe:g}" if s.quote.pe is not None else "价格代理口径"
+    metric = f"PE-TTM {s.quote.pe:g}" if s.quote.pe is not None else "价格代理口径"
     lines.append(f"  数据日期 {s.quote.data_date} | {metric} | 来源:{s.quote.source_label}")
     if s.quote.proxy:
         lines.append("  * 注意:该指数为价格分位代理,非 PE 口径,仅供方向参考")
@@ -30,7 +30,7 @@ def _signal_line(s: Signal) -> list[str]:
 
 
 def _watch_line(q: IndexQuote) -> str:
-    metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理,非 PE 口径"
+    metric = f"PE-TTM {q.pe:g}" if q.pe is not None else "价格代理,非 PE 口径"
     return (f"【观察】{q.name}:分位 {q.percentile:g}%({metric},"
             f"数据日期 {q.data_date},来源:{q.source_label})")
 
@@ -71,7 +71,7 @@ def render_digest(quotes, prev_map: dict, strategy_cfg: dict,
         if zone != "none":
             head += f" · {tier['label']} 档"
         lines.append(head)
-        metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理口径(非PE)"
+        metric = f"PE-TTM {q.pe:g}" if q.pe is not None else "价格代理口径(非PE)"
         prev = prev_map.get(q.code)
         if prev is None:
             delta = "首次记录"
@@ -113,7 +113,7 @@ def render_baseline(quotes, strategy_cfg: dict, skipped: list[str],
              "(此后仅在分位跨越 40%/75% 或档位加深时提醒)"]
     for q in quotes:
         zone, tier = zone_of(q.percentile, strategy_cfg)
-        metric = f"PE {q.pe:g}" if q.pe is not None else "价格代理"
+        metric = f"PE-TTM {q.pe:g}" if q.pe is not None else "价格代理"
         if zone == "buy":
             info = f"定投区 {q.percentile:g}% → {tier['label']} 档:{tier['action']}"
         elif zone == "sell":

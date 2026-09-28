@@ -21,22 +21,22 @@ indices:
   - code: SH000300
     name: 沪深300
     source: danjuan
-    source_label: "蛋卷·PE分位(近10年)"
+    source_label: "蛋卷·PE-TTM分位(近10年)"
 
   - code: SH000905
     name: 中证500
     source: danjuan
-    source_label: "蛋卷·PE分位(近10年)"
+    source_label: "蛋卷·PE-TTM分位(近10年)"
 
   - code: SP500
     name: 标普500
     source: danjuan
-    source_label: "蛋卷·PE分位(近10年)"
+    source_label: "蛋卷·PE-TTM分位(近10年)"
 
   - code: NDX
     name: 纳斯达克100
     source: danjuan
-    source_label: "蛋卷·PE分位(近10年)"
+    source_label: "蛋卷·PE-TTM分位(近10年)"
 
   # 备用数据源适配器(multpl:标普500月度PE自算;nasdaq:价格分位代理)保留在代码中,
   # 主源失败时可在本文件把对应指数的 source 字段临时切换过去。
