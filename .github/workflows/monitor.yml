@@ -8,15 +8,15 @@ on:
                               # 数据语义:蛋卷A股估值深夜发布、美股晨间更新,首次窗口内运行
                               # (约 09:37)即发当日日报,后续运行因幂等不重复推送。
   workflow_dispatch:
-
-env:
-  GITHUB_EVENT_NAME: ${{ github.event_name }}
     inputs:
       mode:
         description: '运行模式'
         type: choice
         default: normal
         options: [normal, test-push]
+
+env:
+  GITHUB_EVENT_NAME: ${{ github.event_name }}
 
 permissions:
   contents: write            # 提交状态与前端数据文件
