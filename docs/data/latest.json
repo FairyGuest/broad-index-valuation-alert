@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28 11:56",
+  "updated_at": "2026-09-28 18:47",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -8,10 +8,10 @@
     {
       "code": "SH000300",
       "name": "沪深300",
-      "pe": 13.29,
-      "percentile": 62.8,
+      "pe": 13.13,
+      "percentile": 58.9,
       "proxy": false,
-      "data_date": "2026-09-24",
+      "data_date": "2026-09-28",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -22,19 +22,16 @@
     {
       "code": "SH000905",
       "name": "中证500",
-      "pe": 32.63,
-      "percentile": 76.2,
+      "pe": 31.74,
+      "percentile": 73.2,
       "proxy": false,
-      "data_date": "2026-09-24",
+      "data_date": "2026-09-28",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
-      "zone": "sell",
-      "zone_label": "止盈区",
-      "tier": {
-        "label": "75–80",
-        "action": "建议卖出持仓 20%–30%"
-      }
+      "zone": "none",
+      "zone_label": "中性区",
+      "tier": null
     },
     {
       "code": "SP500",
