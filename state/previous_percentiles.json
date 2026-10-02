@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T15:41:18+08:00",
+  "updated_at": "2026-10-02T13:27:34+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
@@ -21,7 +21,7 @@
     },
     "SP500": {
       "name": "标普500",
-      "prev_percentile": 57.1,
+      "prev_percentile": 56.8,
       "cur_percentile": 56.8,
       "signal_state": "none",
       "tier_depth": 0,
@@ -30,7 +30,7 @@
     },
     "NDX": {
       "name": "纳指100",
-      "prev_percentile": 50.2,
+      "prev_percentile": 50.8,
       "cur_percentile": 50.8,
       "signal_state": "none",
       "tier_depth": 0,
@@ -38,5 +38,5 @@
       "source": "蛋卷·PE-TTM分位(近10年)"
     }
   },
-  "last_digest_date": "2026-10-01"
+  "last_digest_date": "2026-10-02"
 }
