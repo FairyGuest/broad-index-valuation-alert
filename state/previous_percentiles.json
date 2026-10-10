@@ -1,42 +1,42 @@
 {
-  "updated_at": "2026-10-09T14:35:23+08:00",
+  "updated_at": "2026-10-10T10:38:35+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
-      "prev_percentile": 60.6,
-      "cur_percentile": 59.2,
+      "prev_percentile": 59.2,
+      "cur_percentile": 59.3,
       "signal_state": "none",
       "tier_depth": 0,
-      "data_date": "2026-10-08",
+      "data_date": "2026-10-09",
       "source": "蛋卷·PE-TTM分位(近10年)"
     },
     "SH000905": {
       "name": "中证500",
-      "prev_percentile": 73.8,
+      "prev_percentile": 72.1,
       "cur_percentile": 72.1,
       "signal_state": "none",
       "tier_depth": 0,
-      "data_date": "2026-10-08",
+      "data_date": "2026-10-09",
       "source": "蛋卷·PE-TTM分位(近10年)"
     },
     "SP500": {
       "name": "标普500",
-      "prev_percentile": 56.8,
-      "cur_percentile": 59.8,
+      "prev_percentile": 59.8,
+      "cur_percentile": 58.6,
       "signal_state": "none",
       "tier_depth": 0,
-      "data_date": "2026-10-08",
+      "data_date": "2026-10-09",
       "source": "蛋卷·PE-TTM分位(近10年)"
     },
     "NDX": {
       "name": "纳指100",
-      "prev_percentile": 50.8,
-      "cur_percentile": 52.0,
+      "prev_percentile": 52.0,
+      "cur_percentile": 50.3,
       "signal_state": "none",
       "tier_depth": 0,
-      "data_date": "2026-10-08",
+      "data_date": "2026-10-09",
       "source": "蛋卷·PE-TTM分位(近10年)"
     }
   },
-  "last_digest_date": "2026-10-09"
+  "last_digest_date": "2026-10-10"
 }
