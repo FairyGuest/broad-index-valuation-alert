@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T09:47:03+08:00",
+  "updated_at": "2026-10-14T15:27:23+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
@@ -21,7 +21,7 @@
     },
     "SP500": {
       "name": "标普500",
-      "prev_percentile": 58.4,
+      "prev_percentile": 58.2,
       "cur_percentile": 58.2,
       "signal_state": "none",
       "tier_depth": 0,
@@ -30,7 +30,7 @@
     },
     "NDX": {
       "name": "纳指100",
-      "prev_percentile": 50.0,
+      "prev_percentile": 49.7,
       "cur_percentile": 49.7,
       "signal_state": "none",
       "tier_depth": 0,
