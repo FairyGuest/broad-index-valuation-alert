@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-10-20T19:22:54+08:00",
+  "updated_at": "2026-10-21T09:29:38+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
-      "prev_percentile": 56.9,
+      "prev_percentile": 55.4,
       "cur_percentile": 55.4,
       "signal_state": "none",
       "tier_depth": 0,
@@ -12,7 +12,7 @@
     },
     "SH000905": {
       "name": "中证500",
-      "prev_percentile": 69.4,
+      "prev_percentile": 69.8,
       "cur_percentile": 69.8,
       "signal_state": "none",
       "tier_depth": 0,
@@ -38,5 +38,5 @@
       "source": "蛋卷·PE-TTM分位(近10年)"
     }
   },
-  "last_digest_date": "2026-10-20"
+  "last_digest_date": "2026-10-21"
 }
