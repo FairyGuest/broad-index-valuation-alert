@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21 09:29",
+  "updated_at": "2026-10-21 14:29",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -36,10 +36,10 @@
     {
       "code": "SP500",
       "name": "标普500",
-      "pe": 24.9,
-      "percentile": 54.8,
+      "pe": 24.92,
+      "percentile": 55.0,
       "proxy": false,
-      "data_date": "2026-10-19",
+      "data_date": "2026-10-20",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -50,10 +50,10 @@
     {
       "code": "NDX",
       "name": "纳指100",
-      "pe": 29.74,
-      "percentile": 43.0,
+      "pe": 29.61,
+      "percentile": 42.4,
       "proxy": false,
-      "data_date": "2026-10-19",
+      "data_date": "2026-10-20",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
