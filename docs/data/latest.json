@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-27 14:09",
+  "updated_at": "2026-10-28 09:37",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -8,10 +8,10 @@
     {
       "code": "SH000300",
       "name": "沪深300",
-      "pe": 12.91,
-      "percentile": 53.2,
+      "pe": 12.82,
+      "percentile": 51.6,
       "proxy": false,
-      "data_date": "2026-10-26",
+      "data_date": "2026-10-27",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -22,10 +22,10 @@
     {
       "code": "SH000905",
       "name": "中证500",
-      "pe": 28.85,
-      "percentile": 65.5,
+      "pe": 27.65,
+      "percentile": 58.6,
       "proxy": false,
-      "data_date": "2026-10-26",
+      "data_date": "2026-10-27",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -36,10 +36,10 @@
     {
       "code": "SP500",
       "name": "标普500",
-      "pe": 24.59,
-      "percentile": 51.9,
+      "pe": 24.62,
+      "percentile": 52.0,
       "proxy": false,
-      "data_date": "2026-10-26",
+      "data_date": "2026-10-27",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -50,19 +50,16 @@
     {
       "code": "NDX",
       "name": "纳指100",
-      "pe": 28.89,
-      "percentile": 39.3,
+      "pe": 29.2,
+      "percentile": 40.5,
       "proxy": false,
-      "data_date": "2026-10-26",
+      "data_date": "2026-10-27",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
-      "zone": "buy",
-      "zone_label": "定投区",
-      "tier": {
-        "label": "35–40",
-        "action": "基础定投 1 倍(建议 1 倍)"
-      }
+      "zone": "none",
+      "zone_label": "中性区",
+      "tier": null
     }
   ]
 }
