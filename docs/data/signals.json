@@ -22,5 +22,17 @@
     "action": "基础定投 1 倍(建议 1 倍)",
     "percentile": 36.0,
     "prev_percentile": 41.4
+  },
+  {
+    "time": "2026-11-02 13:47",
+    "date": "2026-11-02",
+    "code": "NDX",
+    "name": "纳指100",
+    "direction": "buy",
+    "direction_cn": "定投",
+    "tier": "25–35",
+    "action": "定投 1.5 倍(建议 1.5 倍)",
+    "percentile": 27.0,
+    "prev_percentile": 36.0
   }
 ]
