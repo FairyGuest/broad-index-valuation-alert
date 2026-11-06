@@ -34,5 +34,29 @@
     "action": "定投 1.5 倍(建议 1.5 倍)",
     "percentile": 27.0,
     "prev_percentile": 36.0
+  },
+  {
+    "time": "2026-11-06 11:21",
+    "date": "2026-11-06",
+    "code": "SP500",
+    "name": "标普500",
+    "direction": "buy",
+    "direction_cn": "定投",
+    "tier": "15–25",
+    "action": "定投 2 倍(建议 2 倍)",
+    "percentile": 24.8,
+    "prev_percentile": 44.5
+  },
+  {
+    "time": "2026-11-06 11:21",
+    "date": "2026-11-06",
+    "code": "NDX",
+    "name": "纳指100",
+    "direction": "buy",
+    "direction_cn": "定投",
+    "tier": "15–25",
+    "action": "定投 2 倍(建议 2 倍)",
+    "percentile": 20.0,
+    "prev_percentile": 28.3
   }
 ]
