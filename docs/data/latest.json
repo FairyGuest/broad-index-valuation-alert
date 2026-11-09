@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-07 11:07",
+  "updated_at": "2026-11-09 13:59",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -36,7 +36,7 @@
     {
       "code": "SP500",
       "name": "标普500",
-      "pe": 22.96,
+      "pe": 22.95,
       "percentile": 25.6,
       "proxy": false,
       "data_date": "2026-11-06",
