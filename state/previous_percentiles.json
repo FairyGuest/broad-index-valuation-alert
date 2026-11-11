@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-11T09:49:59+08:00",
+  "updated_at": "2026-11-11T17:13:27+08:00",
   "indices": {
     "SH000300": {
       "name": "沪深300",
-      "prev_percentile": 67.9,
+      "prev_percentile": 66.4,
       "cur_percentile": 66.4,
       "signal_state": "none",
       "tier_depth": 0,
@@ -12,7 +12,7 @@
     },
     "SH000905": {
       "name": "中证500",
-      "prev_percentile": 60.4,
+      "prev_percentile": 61.3,
       "cur_percentile": 61.3,
       "signal_state": "none",
       "tier_depth": 0,
@@ -21,7 +21,7 @@
     },
     "SP500": {
       "name": "标普500",
-      "prev_percentile": 36.8,
+      "prev_percentile": 35.7,
       "cur_percentile": 35.7,
       "signal_state": "buy",
       "tier_depth": 1,
@@ -33,7 +33,7 @@
     },
     "NDX": {
       "name": "纳指100",
-      "prev_percentile": 24.2,
+      "prev_percentile": 23.1,
       "cur_percentile": 23.1,
       "signal_state": "buy",
       "tier_depth": 3,
