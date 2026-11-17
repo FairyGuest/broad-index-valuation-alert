@@ -82,5 +82,17 @@
     "action": "定投 2 倍(建议 2 倍)",
     "percentile": 23.8,
     "prev_percentile": 25.4
+  },
+  {
+    "time": "2026-11-17 16:23",
+    "date": "2026-11-17",
+    "code": "SP500",
+    "name": "标普500",
+    "direction": "buy",
+    "direction_cn": "定投",
+    "tier": "25–35",
+    "action": "定投 1.5 倍(建议 1.5 倍)",
+    "percentile": 28.4,
+    "prev_percentile": 38.7
   }
 ]
