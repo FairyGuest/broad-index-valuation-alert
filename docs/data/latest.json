@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-20 19:18",
+  "updated_at": "2026-11-23 15:19",
   "thresholds": {
     "buy": 40,
     "sell": 75
@@ -36,10 +36,10 @@
     {
       "code": "SP500",
       "name": "标普500",
-      "pe": 22.14,
-      "percentile": 20.8,
+      "pe": 22.37,
+      "percentile": 21.8,
       "proxy": false,
-      "data_date": "2026-11-19",
+      "data_date": "2026-11-20",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
@@ -53,18 +53,18 @@
     {
       "code": "NDX",
       "name": "纳指100",
-      "pe": 25.0,
-      "percentile": 12.2,
+      "pe": 25.46,
+      "percentile": 15.3,
       "proxy": false,
-      "data_date": "2026-11-19",
+      "data_date": "2026-11-20",
       "source_label": "蛋卷·PE-TTM分位(近10年)",
       "window_label": "近10年",
       "sample_size": 0,
       "zone": "buy",
       "zone_label": "定投区",
       "tier": {
-        "label": "0–15",
-        "action": "定投 3 倍,可动用备用资金(建议 3 倍)"
+        "label": "15–25",
+        "action": "定投 2 倍(建议 2 倍)"
       }
     }
   ]
