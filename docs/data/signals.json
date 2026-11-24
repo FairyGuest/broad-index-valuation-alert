@@ -118,5 +118,17 @@
     "action": "定投 3 倍,可动用备用资金(建议 3 倍)",
     "percentile": 12.2,
     "prev_percentile": 16.8
+  },
+  {
+    "time": "2026-11-24 12:23",
+    "date": "2026-11-24",
+    "code": "NDX",
+    "name": "纳指100",
+    "direction": "buy",
+    "direction_cn": "定投",
+    "tier": "0–15",
+    "action": "定投 3 倍,可动用备用资金(建议 3 倍)",
+    "percentile": 14.0,
+    "prev_percentile": 15.3
   }
 ]
